@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'main',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 SITE_ID = 2
@@ -123,3 +125,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_DIR = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'static'
+
+# ckeditor image uploads setting
+CKEDITOR_UPLOAD_PATH = "uploads/"
