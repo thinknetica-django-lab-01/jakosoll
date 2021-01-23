@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import resolve
-from .views import index
+from main.views import index
 
 
 class MainViewsTest(TestCase):
