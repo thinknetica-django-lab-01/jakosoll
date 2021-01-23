@@ -44,6 +44,9 @@ class Vendor(models.Model):
     bio = models.TextField('Информация', max_length=500, blank=True)
     location = models.CharField('Местоположение', max_length=30, blank=True)
 
+    def __str__(self):
+        return self.user.username
+
 
 class Tag(models.Model):
     """"""
