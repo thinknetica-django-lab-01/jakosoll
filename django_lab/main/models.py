@@ -38,11 +38,12 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 
-class Vendor(models.Model):
+class Profile(models.Model):
     """vendor's model"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField('Информация', max_length=500, blank=True)
     location = models.CharField('Местоположение', max_length=30, blank=True)
+    vendor = models.BooleanField('Является ли продавцом', default=False)
 
 
 class Tag(models.Model):
@@ -56,11 +57,11 @@ class Tag(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Vendor.objects.create(user=instance)
+        Profile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.vendor.save()
+    instance.profile.save()
 
 
