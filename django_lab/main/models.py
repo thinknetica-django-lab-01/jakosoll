@@ -45,6 +45,9 @@ class Profile(models.Model):
     location = models.CharField('Местоположение', max_length=30, blank=True)
     vendor = models.BooleanField('Является ли продавцом', default=False)
 
+    def __str__(self):
+        return self.user.username
+
 
 class Tag(models.Model):
     """"""
@@ -62,6 +65,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    instance.vendor.save()
 
 
