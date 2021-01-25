@@ -15,6 +15,7 @@ class Product(models.Model):
     created = models.DateTimeField('Добавлен', auto_now_add=True)
     updated = models.DateTimeField('Последнее обновление', auto_now=True)
     tags = models.ManyToManyField('Tag', verbose_name='Теги')
+    available = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -58,13 +59,7 @@ class Tag(models.Model):
 
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.vendor.save()
+def update_or_create_user_profile(sender, instance, **kwargs):
+    Profile.objects.update_or_create(user=instance)
 
 
