@@ -4,6 +4,20 @@
     <div class="container">
         <div class="row mt-5">
             <h1>Главная страница</h1>
+            {% if turn_on_block %}
+                <div>
+                    <p>Блок с контенктом включен</p>
+                </div>
+            {% else %}
+                <div>
+                    <p>Блок с контенктом выключен</p>
+                </div>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <p>Текущий пользователь: {{ user.username }}</p>
+            {% else %}
+                <p>Вы не авторизированы</p>
+            {% endif %}
         </div>
     </div>
 {% endblock content %}
