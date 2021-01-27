@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load server_time %}
+{% current_time "%Y-%m-%d %I:%M %p" as the_time %}
 {% block title %}Главная{% endblock title %}
 {% block header %}
     {% include 'include/header.html' %}
@@ -13,7 +15,7 @@
                 </div>
             {% else %}
                 <div>
-                    <p>Блок с контенктом выключен</p>
+                    <p>The time is {{ the_time }}.</p>
                 </div>
             {% endif %}
             {% if user.is_authenticated %}
