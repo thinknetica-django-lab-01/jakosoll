@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load server_time %}
-{% current_time "%Y-%m-%d %I:%M %p" as the_time %}
+{% load main_tags %}
+{% current_time "%Y-%m-%d" as the_time %}
 {% block title %}Главная{% endblock title %}
 {% block header %}
     {% include 'include/header.html' %}
@@ -9,20 +9,10 @@
     <div class="container">
         <div class="row mt-5">
             <h1>Главная страница</h1>
-            {% if turn_on_block %}
-                <div>
-                    <p>Блок с контенктом включен</p>
-                </div>
-            {% else %}
-                <div>
-                    <p>The time is {{ the_time }}.</p>
-                </div>
-            {% endif %}
-            {% if user.is_authenticated %}
-                <p>Текущий пользователь: {{ user.username }}</p>
-            {% else %}
-                <p>Вы не авторизированы</p>
-            {% endif %}
+            <div>
+                <p>Текущее время сервера {% current_time "%H:%M:%S" %}.</p>
+                <p>{{ 'Привет мир' | reverse_text }}</p>
+            </div>
         </div>
     </div>
 {% endblock content %}
