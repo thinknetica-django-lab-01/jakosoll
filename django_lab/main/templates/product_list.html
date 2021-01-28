@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% block title %}Список товаров{% endblock title %}
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            <h1>Список товаров</h1>
+            <ul>
+                {% for product in products %}
+                <li><a href="{% url 'goods_detail' pk=product.id %}">{{ product.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}
