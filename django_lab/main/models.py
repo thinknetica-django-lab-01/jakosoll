@@ -7,6 +7,7 @@ from django.dispatch import receiver
 class Product(models.Model):
     """product's model"""
     category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
+    vendor = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Продавец')
     name = models.CharField('Название', max_length=40, db_index=True)
     description = models.TextField('Описание', blank=True)
     price = models.DecimalField('Стоимость', max_digits=8, decimal_places=2, help_text='Укзажите сумму в '
