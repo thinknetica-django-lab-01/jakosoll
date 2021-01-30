@@ -11,6 +11,7 @@ def index(request):
 class ProductListView(ListView):
     """Displays product's list"""
     model = Product
+    paginate_by = 10
     template_name = 'product_list.html'
     context_object_name = 'products'
 
