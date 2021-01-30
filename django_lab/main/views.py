@@ -3,10 +3,8 @@ from django.views.generic import ListView, DetailView
 from .models import Product
 
 
-def index(request, **kwargs):
+def index(request):
     """Displays main page"""
-    print(kwargs)
-    print(request.GET.get('some'))
     return render(request, 'index.html')
 
 
