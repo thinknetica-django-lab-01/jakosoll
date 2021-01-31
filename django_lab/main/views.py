@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from .models import Product
+from .forms import UpdateUserForm
 
 
 def index(request):
@@ -35,3 +38,15 @@ class ProductDetailView(DetailView):
     queryset = Product.objects.all()
     template_name = 'product_detail.html'
     context_object_name = 'product'
+
+
+class UpdateAccountView(LoginRequiredMixin, UpdateView):
+    """Displays user's account profile form"""
+    form_class = UpdateUserForm
+    login_url = '/'
+    template_name = 'login_update.html'
+    success_url = '/'
+
+    def get_object(self, queryset=None):
+        return User.objects.get(pk=self.request.user.id)
+

@@ -12,10 +12,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if user.is_authenticated %}
-                        <li class="nav-item"><a href="#" class="nav-link">{{ user.username }}</a></li>
+                        <li class="nav-item"><a href="{% url 'update_account' %}" class="nav-link">{{ user.username }}</a></li>
                     {% else %}
                         <li class="nav-item"><a href="#" class="nav-link">Войти</a></li>
                     {% endif %}
+                        <li class="nav-item"><a href="{% url 'goods' %}" class="nav-link">Товары</a></li>
                     {% for page in flatpages %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ page.get_absolute_url }}">{{ page.title }}</a>
