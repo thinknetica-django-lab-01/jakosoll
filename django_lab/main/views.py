@@ -78,5 +78,5 @@ class UpdateAccountView(LoginRequiredMixin, UpdateView):
     success_url = '/'
 
     def get_object(self, queryset=None):
-        return User.objects.get(pk=self.request.user.id)
+        return self.request.user
 
