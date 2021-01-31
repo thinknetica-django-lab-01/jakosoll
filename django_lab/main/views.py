@@ -46,7 +46,6 @@ class ProductAddView(PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductAddForm
     login_url = '/'
-    success_url = '/'
     template_name = 'product_add.html'
 
     def get_context_data(self, **kwargs):
@@ -60,6 +59,15 @@ class ProductAddView(PermissionRequiredMixin, CreateView):
         product.vendor_id = self.request.user.id
         product.save()
         return super(ProductAddView, self).form_valid(form)
+
+
+class ProductEditView(PermissionRequiredMixin, UpdateView):
+    """Displays product edit form"""
+    permission_required = 'main.edit_product'
+    form_class = ProductAddForm
+    login_url = '/'
+    template_name = 'product_update.html'
+    model = Product
 
 
 class UpdateAccountView(LoginRequiredMixin, UpdateView):

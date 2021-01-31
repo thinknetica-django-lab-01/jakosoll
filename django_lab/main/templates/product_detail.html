@@ -8,5 +8,10 @@
             <p>{{ product.price }} Рублей</p>
             <p>Имя продавца: {{ product.vendor.username }}</p>
         </div>
+        <div class="row">
+            <div class="col-md-1">
+                <a href="{% url 'goods_edit' pk=product.id %}" class="btn btn-primary" role="button">Изменить</a>
+            </div>
+        </div>
     </div>
 {% endblock content %}

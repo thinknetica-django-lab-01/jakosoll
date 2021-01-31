@@ -1,10 +1,7 @@
-<<<<<<< Updated upstream
 from django.forms import ModelForm
-=======
 from django import forms
 from .models import Product
 from django.core.exceptions import ValidationError
->>>>>>> Stashed changes
 from django.contrib.auth.models import User
 
 
