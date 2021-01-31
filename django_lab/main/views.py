@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
-from .models import Product
-from .forms import UpdateUserForm
+from .models import Product, Category, Tag
+from .forms import UpdateUserForm, ProductAddForm
 
 
 def index(request):
@@ -38,6 +38,28 @@ class ProductDetailView(DetailView):
     queryset = Product.objects.all()
     template_name = 'product_detail.html'
     context_object_name = 'product'
+
+
+class ProductAddView(PermissionRequiredMixin, CreateView):
+    """Displays form for add product"""
+    permission_required = 'main.add_product'
+    model = Product
+    form_class = ProductAddForm
+    login_url = '/'
+    success_url = '/'
+    template_name = 'product_add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductAddView, self).get_context_data()
+        context['category'] = Category.objects.all()
+        context['tags'] = Tag.objects.all()
+        return context
+
+    def form_valid(self, form):
+        product = form.save(commit=False)
+        product.vendor_id = self.request.user.id
+        product.save()
+        return super(ProductAddView, self).form_valid(form)
 
 
 class UpdateAccountView(LoginRequiredMixin, UpdateView):
