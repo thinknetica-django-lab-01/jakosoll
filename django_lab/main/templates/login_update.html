@@ -1,15 +1,5 @@
-{% extends 'index.html' %}
+{% extends 'login.html' %}
 {% block title %}Редактировать информацию о профиле{% endblock title %}
-{% block content %}
-    <div class="container my-4">
-        <h1 class="display-4">Отредактировать профиль</h1>
-        <div class="row mx-auto my-4">
-            <div class="col-md-4">
-                <form action="" method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <input class="btn btn-light" type="submit" role="button" value="Сохранить">
-                </form>
-            </div>
-        </div>
-{% endblock content %}
+
+{% block h1 %}Отредактировать профиль{% endblock h1 %}
+{% block btn_name %}Сохранить{% endblock btn_name %}
