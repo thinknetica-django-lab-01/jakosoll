@@ -1,11 +1,8 @@
 from django.shortcuts import render
-from django.urls import reverse
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.models import User
 from .models import Product, Category, Tag
 from .forms import UpdateUserForm, ProductAddForm
-from django.contrib.auth.views import LoginView
 
 
 def index(request):
@@ -67,7 +64,6 @@ class ProductEditView(PermissionRequiredMixin, UpdateView):
     """Displays product edit form"""
     permission_required = 'main.edit_product'
     form_class = ProductAddForm
-    # login_url = '/'
     template_name = 'product_update.html'
     model = Product
 
@@ -75,14 +71,8 @@ class ProductEditView(PermissionRequiredMixin, UpdateView):
 class UpdateAccountView(LoginRequiredMixin, UpdateView):
     """Displays user's account profile form"""
     form_class = UpdateUserForm
-    # login_url = '/'
     template_name = 'login_update.html'
     success_url = '/'
 
     def get_object(self, queryset=None):
         return self.request.user
-
-
-# class UserLoginView(LoginView):
-#     template_name = 'login.html'
-#     authentication_form =
