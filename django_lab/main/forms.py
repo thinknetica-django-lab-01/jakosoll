@@ -6,6 +6,11 @@ from .models import Product
 
 class UpdateUserForm(forms.ModelForm):
     age = forms.IntegerField()  # можно указать для стандартной валидации min_value=18
+    username = forms.CharField(
+        min_length=4,
+        max_length=15,
+        help_text='Обязательное поле, не более 15 символов',
+    )
 
     def clean_age(self):
         """validate age field"""
@@ -16,7 +21,7 @@ class UpdateUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email')
 
 
 class ProductAddForm(forms.ModelForm):
