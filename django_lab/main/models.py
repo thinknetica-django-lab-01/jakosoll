@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, Permission
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
@@ -64,7 +65,13 @@ class Tag(models.Model):
 
 
 @receiver(post_save, sender=User)
-def update_or_create_user_profile(sender, instance, **kwargs):
-    Profile.objects.update_or_create(user=instance)
+def update_or_create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        common_users, group_created = Group.objects.get_or_create(name='common users')
+        instance.groups.add(common_users)
+        if group_created:
+            perms = ('add_profile', 'change_profile')
+            permissions_queryset = Permission.objects.filter(codename__in=perms)
+            common_users.permissions.set(permissions_queryset)
 
 
