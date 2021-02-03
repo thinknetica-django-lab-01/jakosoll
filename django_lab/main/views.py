@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from .models import Product, Category, Tag
 from .forms import UpdateUserForm, ProductAddForm
 
@@ -59,12 +59,15 @@ class ProductAddView(PermissionRequiredMixin, CreateView):
         return super(ProductAddView, self).form_valid(form)
 
 
-class ProductEditView(PermissionRequiredMixin, UpdateView):
+class ProductEditView(PermissionRequiredMixin, UserPassesTestMixin, UpdateView):
     """Displays product edit form"""
-    permission_required = 'main.edit_product'
+    permission_required = 'main.change_product'
     form_class = ProductAddForm
     template_name = 'product_update.html'
     model = Product
+
+    def test_func(self):
+        return self.request.user.id == self.get_object().vendor_id
 
 
 class UpdateAccountView(LoginRequiredMixin, UpdateView):
