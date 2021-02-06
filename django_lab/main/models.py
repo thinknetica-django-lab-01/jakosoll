@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group, Permission
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+from .email_sender import send_email
 
 
 class Product(models.Model):
@@ -65,7 +66,7 @@ class Tag(models.Model):
 
 
 @receiver(post_save, sender=User)
-def update_or_create_user_profile(sender, instance, created, **kwargs):
+def add_user_profile_and_perms(sender, instance, created, **kwargs):
     if created:
         common_users, group_created = Group.objects.get_or_create(name='common users')
         instance.groups.add(common_users)
@@ -73,5 +74,11 @@ def update_or_create_user_profile(sender, instance, created, **kwargs):
             perms = ('add_profile', 'change_profile')
             permissions_queryset = Permission.objects.filter(codename__in=perms)
             common_users.permissions.set(permissions_queryset)
+
+
+@receiver(post_save, sender=User)
+def send_greeting_email(sender, created, **kwargs):
+    if created:
+        send_email(sender)
 
 

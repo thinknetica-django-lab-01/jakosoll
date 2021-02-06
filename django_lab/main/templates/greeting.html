@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Приветствуем,
+        {# Можно добавить в форму регистрации имя #}
+        {% if user.first_name %}
+            {{ user.first_name }}
+        {% else %}
+            новый пользователь
+        {% endif %}!
+    </h1>
+</body>
+</html>
