@@ -52,6 +52,8 @@ INSTALLED_APPS = [
 
 SITE_ID = 2
 
+ACCOUNT_ADAPTER = "main.adapter.CustomAdapter"
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # For each OAuth based provider, either add a ``SocialApp``
