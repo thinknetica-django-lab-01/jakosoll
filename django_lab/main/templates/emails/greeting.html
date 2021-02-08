@@ -7,11 +7,13 @@
 <body>
     <h1>Приветствуем,
         {# Можно добавить в форму регистрации имя #}
+    {% block content %}
         {% if user.first_name %}
             {{ user.first_name }}
         {% else %}
             новый пользователь
         {% endif %}!
+    {% endblock %}
     </h1>
 </body>
 </html>

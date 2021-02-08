@@ -1,0 +1,5 @@
+{% extends 'emails/greeting.html' %}
+{% block content %}
+    <p>Пользователь {{ product.vendor.username }} добавил новый товар</p>
+    <p>Название: {{ product.name }}</p>
+{% endblock %}
