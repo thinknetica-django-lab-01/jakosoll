@@ -11,6 +11,17 @@
                 {% endfor %}
             </ul>
         </div>
+    {% if user.is_authenticated and not user.subscriber %}
+        <div class="row">
+            <div class="col-md-10">
+                <form action="{% url 'goods_subscriptions' %}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input class="btn btn-primary" type="submit" role="button" value="{% block btn_name %}Подписаться{% endblock btn_name %}">
+                </form>
+            </div>
+        </div>
+    {% endif %}
         {% if page_obj.paginator.num_pages != 1 %}
             <div class="row">
                 <div class="col-md-10">

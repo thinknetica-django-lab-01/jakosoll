@@ -1,8 +1,12 @@
+from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from .models import Product, Category, Tag
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import Product, Category, Tag, ProductSubscriber
 from .forms import UpdateUserForm, ProductAddForm
+from django import forms
 
 
 def index(request):
@@ -80,4 +84,17 @@ class UpdateAccountView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
 
-
+@login_required
+def subscription(request):
+    """Handles subscribe button"""
+    if request.POST:
+        form = forms.Form(request.POST or None)
+        user = request.user
+        if form.is_valid():
+            subscriber, created = ProductSubscriber.objects.get_or_create(user=user)
+            if created:
+                messages.add_message(request, messages.SUCCESS, 'Вы подписались на рассылку')
+            else:
+                messages.add_message(request, messages.ERROR, 'Вы уже подписаны на рассылку')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        return HttpResponseBadRequest()

@@ -65,6 +65,12 @@ class Tag(models.Model):
         return self.name
 
 
+class ProductSubscriber(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriber')
+    email = models.EmailField("email")
+
+
 @receiver(post_save, sender=User)
 def add_user_profile_and_perms(sender, instance, created, **kwargs):
     if created:
