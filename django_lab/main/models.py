@@ -69,7 +69,6 @@ class Tag(models.Model):
 class ProductSubscriber(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriber')
-    email = models.EmailField("email")
 
 
 @receiver(post_save, sender=User)
@@ -93,7 +92,7 @@ def send_greeting_email(sender, created, **kwargs):
 def send_goods_subscribe(instance, created, **kwargs):
     if created:
         qs = ProductSubscriber.objects.all()
-        emails = [user.email for user in qs if user.email != EMAIL_HOST_USER ]
+        emails = [item.user.email for item in qs]
         send_new_goods_email(instance, emails)
 
 
