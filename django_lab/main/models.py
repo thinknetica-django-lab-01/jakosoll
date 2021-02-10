@@ -4,8 +4,6 @@ from django.contrib.auth.models import Group, Permission
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
-from .email_sender import send_greeting_email, send_new_goods_email
-from django_lab.settings import EMAIL_HOST_USER
 
 
 class Product(models.Model):
@@ -86,13 +84,4 @@ def add_user_profile_and_perms(sender, instance, created, **kwargs):
 def send_greeting_email(sender, created, **kwargs):
     if created:
         send_greeting_email(sender)
-
-
-@receiver(post_save, sender=Product)
-def send_goods_subscribe(instance, created, **kwargs):
-    if created:
-        qs = ProductSubscriber.objects.all()
-        emails = [item.user.email for item in qs]
-        send_new_goods_email(instance, emails)
-
 

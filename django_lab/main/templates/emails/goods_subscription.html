@@ -1,5 +1,12 @@
 {% extends 'emails/greeting.html' %}
 {% block content %}
-    <p>Пользователь {{ product.vendor.username }} добавил новый товар</p>
-    <p>Название: {{ product.name }}</p>
+    <h1>Новые товары за последние 7 дней</h1>
+    <ul class="list">
+        {% for product in products %}
+            <li class="list-item">
+                <p>Название: {{ product.name }}</p>
+                <p>Продавец: @{{ product.vendor.username }}</p>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

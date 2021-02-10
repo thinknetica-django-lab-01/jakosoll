@@ -1,6 +1,7 @@
 from allauth.account.adapter import DefaultAccountAdapter
 from django.core.mail import EmailMultiAlternatives
 from django.template import loader
+from django_lab.settings import EMAIL_HOST_USER
 
 
 class CustomAdapter(DefaultAccountAdapter):
@@ -11,7 +12,7 @@ class CustomAdapter(DefaultAccountAdapter):
         msg = EmailMultiAlternatives(
             subject="Подтвердите электронный адрес",
             body=html,
-            from_email='jako.soll@gmail.com',
+            from_email=EMAIL_HOST_USER,
             to=[email],
         )
         msg.content_subtype = 'html'
