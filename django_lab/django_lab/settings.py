@@ -171,3 +171,6 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 # ckeditor image uploads setting
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+# Celery Configuration Options
+CELERY_TIMEZONE = "Europe/Moscow"
