@@ -79,9 +79,3 @@ def add_user_profile_and_perms(sender, instance, created, **kwargs):
             permissions_queryset = Permission.objects.filter(codename__in=perms)
             common_users.permissions.set(permissions_queryset)
 
-
-@receiver(post_save, sender=User)
-def send_greeting_email(sender, created, **kwargs):
-    if created:
-        send_greeting_email(sender)
-
