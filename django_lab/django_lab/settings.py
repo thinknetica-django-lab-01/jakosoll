@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 SITE_ID = 2
@@ -175,7 +177,7 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 # Celery Configuration Options
 CELERY_TIMEZONE = "Europe/Moscow"
 CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'db+sqlite:///results.sqlite'
+CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
