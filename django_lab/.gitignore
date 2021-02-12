@@ -5,3 +5,4 @@ static/
 /.idea/
 *.env
 *.rdb
+*.db
