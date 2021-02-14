@@ -19,6 +19,7 @@ class Product(models.Model):
     updated = models.DateTimeField('Последнее обновление', auto_now=True)
     tags = models.ManyToManyField('Tag', verbose_name='Теги')
     available = models.BooleanField(default=True)
+    view_counter = models.PositiveIntegerField('Просмотры', default=0)
 
     def __str__(self):
         return self.name

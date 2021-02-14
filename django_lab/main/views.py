@@ -9,6 +9,7 @@ from .forms import UpdateUserForm, ProductAddForm
 from django import forms
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 
 def index(request):
@@ -38,12 +39,29 @@ class ProductListView(ListView):
         return context
 
 
-@method_decorator(cache_page(60 * 5), name='dispatch')
+# @method_decorator(cache_page(60 * 5), name='dispatch')
 class ProductDetailView(DetailView):
     """Displays product's detail view"""
     queryset = Product.objects.all()
     template_name = 'product_detail.html'
     context_object_name = 'product'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.view_counter += 1
+        self.object.save()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data()
+        cache_product_id = 'cache_product_id:' + str(self.object.id)
+        counter = cache.get(cache_product_id)
+        if not counter:
+            counter = self.object.view_counter
+            cache.set(cache_product_id, counter, 60)
+        context['counter'] = counter
+        return context
 
 
 class ProductAddView(PermissionRequiredMixin, CreateView):
