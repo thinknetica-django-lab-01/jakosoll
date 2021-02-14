@@ -50,9 +50,14 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'django_celery_results',
     'django_celery_beat',
+    'debug_toolbar',
 ]
 
 SITE_ID = 2
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 ACCOUNT_ADAPTER = "main.adapter.CustomAdapter"
 
@@ -84,6 +89,7 @@ EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
