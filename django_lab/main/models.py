@@ -80,3 +80,8 @@ def add_user_profile_and_perms(sender, instance, created, **kwargs):
             permissions_queryset = Permission.objects.filter(codename__in=perms)
             common_users.permissions.set(permissions_queryset)
 
+
+@receiver(post_save, sender=User)
+def update_or_create_user_profile(sender, instance, **kwargs):
+    """Function adds profile when user created"""
+    Profile.objects.update_or_create(user=instance)

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import resolve
 from main.views import index, ProductListView
@@ -15,6 +16,11 @@ class MainViewsTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'index.html')
 
+    def test_status_code(self):
+        """test: view returns 200 status"""
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+
 
 class ListViewSTest(TestCase):
 
@@ -30,9 +36,10 @@ class ListViewSTest(TestCase):
 
     def test_page_shows_list_of_products(self):
         """Test: goods displays on list page"""
+        user = User.objects.create_user(username='test', password='123456')
         category1 = Category.objects.create(name='Category 1', slug='category-1')
-        Product.objects.create(name='product 1', price=100, category=category1)
-        Product.objects.create(name='product 2', price=200, category=category1)
+        Product.objects.create(name='product 1', price=100, category=category1, vendor=user)
+        Product.objects.create(name='product 2', price=200, category=category1, vendor=user)
         response = self.client.get('/goods/')
         self.assertContains(response, 'product 1')
         self.assertContains(response, 'product 2')
