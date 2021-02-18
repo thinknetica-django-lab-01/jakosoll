@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import resolve
-from main.views import index, ProductListView
+from main.views import index
 from main.models import Product, Category
 
 
 class MainViewsTest(TestCase):
     """testcases for views"""
-    
+
     def test_url_resolves_to_index_view(self):
         found = resolve('/')
         self.assertEqual(found.func, index)

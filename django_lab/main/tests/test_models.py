@@ -10,7 +10,7 @@ class ProductModelTest(TestCase):
 
     def setUp(self) -> None:
         self.user = User.objects.create_user(username='name')
-        self.category = category = Category.objects.create(name='test_category')
+        self.category = Category.objects.create(name='test_category')
 
     def test_cannot_save_empty_product_name(self):
         """Test: cannot save product without name"""
@@ -39,7 +39,6 @@ class ProductModelTest(TestCase):
 
 class ProfileModelsTest(TestCase):
 
-
     def test_Profiles_post_save(self):
         """Test: Profile create when created User"""
         user = User.objects.create_user(username='name')
@@ -59,17 +58,12 @@ class ProfileModelsTest(TestCase):
         user = User.objects.create_user(username='name')
 
         self.assertFalse(
-            user.groups.filter(name='sellers').exists(), 
+            user.groups.filter(name='sellers').exists(),
             msg="Error, user in sellers group"
         )
 
         user.profile.make_as_vendor()
         self.assertTrue(
-            user.groups.filter(name='sellers').exists(), 
+            user.groups.filter(name='sellers').exists(),
             msg="User out of sellers group"
         )
-
-
-
-
-

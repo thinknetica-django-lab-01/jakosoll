@@ -1,4 +1,3 @@
-from main.models import Category, Product
 
 
 def test_index_view_status_code(client):

@@ -14,9 +14,3 @@ def send_greeting_email(user):
     )
     msg.content_subtype = 'html'
     msg.send()
-
-
-
-
-
-

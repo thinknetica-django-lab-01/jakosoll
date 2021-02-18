@@ -7,8 +7,6 @@ from django.contrib import messages
 from .models import Product, Category, Tag, ProductSubscriber
 from .forms import UpdateUserForm, ProductAddForm
 from django import forms
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 
 
