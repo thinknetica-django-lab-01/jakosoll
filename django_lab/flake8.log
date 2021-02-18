@@ -1,0 +1,73 @@
+./queries.py:11:80: E501 line too long (82 > 79 characters)
+./django_lab/celery.py:21:40: W292 no newline at end of file
+./django_lab/settings.py:147:80: E501 line too long (91 > 79 characters)
+./django_lab/settings.py:150:80: E501 line too long (81 > 79 characters)
+./django_lab/settings.py:153:80: E501 line too long (82 > 79 characters)
+./django_lab/settings.py:156:80: E501 line too long (83 > 79 characters)
+./main/tasks.py:48:80: E501 line too long (91 > 79 characters)
+./main/tasks.py:54:80: E501 line too long (82 > 79 characters)
+./main/models.py:11:80: E501 line too long (96 > 79 characters)
+./main/models.py:12:80: E501 line too long (87 > 79 characters)
+./main/models.py:15:80: E501 line too long (106 > 79 characters)
+./main/models.py:16:80: E501 line too long (96 > 79 characters)
+./main/models.py:17:80: E501 line too long (99 > 79 characters)
+./main/models.py:62:80: E501 line too long (80 > 79 characters)
+./main/models.py:66:80: E501 line too long (84 > 79 characters)
+./main/models.py:85:80: E501 line too long (87 > 79 characters)
+./main/models.py:91:80: E501 line too long (86 > 79 characters)
+./main/models.py:95:80: E501 line too long (80 > 79 characters)
+./main/adapter.py:9:80: E501 line too long (101 > 79 characters)
+./main/forms.py:8:80: E501 line too long (86 > 79 characters)
+./main/forms.py:33:1: W391 blank line at end of file
+./main/email_sender.py:22:1: W391 blank line at end of file
+./main/urls.py:14:80: E501 line too long (82 > 79 characters)
+./main/views.py:4:80: E501 line too long (103 > 79 characters)
+./main/views.py:10:1: F401 'django.utils.decorators.method_decorator' imported but unused
+./main/views.py:11:1: F401 'django.views.decorators.cache.cache_page' imported but unused
+./main/views.py:87:80: E501 line too long (80 > 79 characters)
+./main/views.py:115:80: E501 line too long (84 > 79 characters)
+./main/views.py:117:80: E501 line too long (93 > 79 characters)
+./main/views.py:119:80: E501 line too long (93 > 79 characters)
+./main/migrations/0002_auto_20210124_0942.py:19:80: E501 line too long (114 > 79 characters)
+./main/migrations/0002_auto_20210124_0942.py:20:80: E501 line too long (97 > 79 characters)
+./main/migrations/0002_auto_20210124_0942.py:21:80: E501 line too long (105 > 79 characters)
+./main/migrations/0002_auto_20210124_0942.py:22:80: E501 line too long (101 > 79 characters)
+./main/migrations/0002_auto_20210124_0942.py:23:80: E501 line too long (121 > 79 characters)
+./main/migrations/0007_auto_20210130_1121.py:19:80: E501 line too long (122 > 79 characters)
+./main/migrations/0009_auto_20210214_1358.py:23:80: E501 line too long (83 > 79 characters)
+./main/migrations/0009_auto_20210214_1358.py:28:80: E501 line too long (137 > 79 characters)
+./main/migrations/0001_initial.py:20:80: E501 line too long (114 > 79 characters)
+./main/migrations/0001_initial.py:21:80: E501 line too long (99 > 79 characters)
+./main/migrations/0001_initial.py:32:80: E501 line too long (114 > 79 characters)
+./main/migrations/0001_initial.py:39:80: E501 line too long (114 > 79 characters)
+./main/migrations/0001_initial.py:40:80: E501 line too long (97 > 79 characters)
+./main/migrations/0001_initial.py:41:80: E501 line too long (105 > 79 characters)
+./main/migrations/0001_initial.py:42:80: E501 line too long (121 > 79 characters)
+./main/migrations/0001_initial.py:48:80: E501 line too long (114 > 79 characters)
+./main/migrations/0001_initial.py:49:80: E501 line too long (98 > 79 characters)
+./main/migrations/0001_initial.py:50:80: E501 line too long (87 > 79 characters)
+./main/migrations/0001_initial.py:51:80: E501 line too long (142 > 79 characters)
+./main/migrations/0001_initial.py:52:80: E501 line too long (128 > 79 characters)
+./main/migrations/0001_initial.py:53:80: E501 line too long (94 > 79 characters)
+./main/migrations/0001_initial.py:54:80: E501 line too long (102 > 79 characters)
+./main/migrations/0001_initial.py:55:80: E501 line too long (139 > 79 characters)
+./main/migrations/0001_initial.py:56:80: E501 line too long (85 > 79 characters)
+./main/migrations/0008_productsubscriber.py:19:80: E501 line too long (114 > 79 characters)
+./main/migrations/0008_productsubscriber.py:20:80: E501 line too long (83 > 79 characters)
+./main/migrations/0008_productsubscriber.py:21:80: E501 line too long (118 > 79 characters)
+./main/migrations/0005_product_vendor.py:19:80: E501 line too long (146 > 79 characters)
+./main/tests/test_views.py:4:1: F401 'main.views.ProductListView' imported but unused
+./main/tests/test_views.py:10:1: W293 blank line contains whitespace
+./main/tests/test_views.py:41:80: E501 line too long (81 > 79 characters)
+./main/tests/test_views.py:42:80: E501 line too long (92 > 79 characters)
+./main/tests/test_views.py:43:80: E501 line too long (92 > 79 characters)
+./main/tests/test_models.py:13:25: F841 local variable 'category' is assigned to but never used
+./main/tests/test_models.py:13:80: E501 line too long (80 > 79 characters)
+./main/tests/test_models.py:43:5: E303 too many blank lines (2)
+./main/tests/test_models.py:62:57: W291 trailing whitespace
+./main/tests/test_models.py:68:57: W291 trailing whitespace
+./main/tests/test_models.py:75:1: W391 blank line at end of file
+./main/tests/test_pytests.py:1:1: F401 'main.models.Category' imported but unused
+./main/tests/test_pytests.py:1:1: F401 'main.models.Product' imported but unused
+./main/management/commands/email_scheduler.py:11:80: E501 line too long (105 > 79 characters)
+./main/management/commands/dummyitems.py:28:80: E501 line too long (118 > 79 characters)
