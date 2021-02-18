@@ -6,3 +6,8 @@ static/
 *.env
 *.rdb
 *.db
+django_lab.sublime-project
+django_lab.sublime-workspace
+.python-version
+*.lock
+*.bak
