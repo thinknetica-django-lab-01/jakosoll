@@ -39,6 +39,7 @@ class ProductModelTest(TestCase):
 
 class ProfileModelsTest(TestCase):
 
+
     def test_Profiles_post_save(self):
         """Test: Profile create when created User"""
         user = User.objects.create_user(username='name')
@@ -50,3 +51,25 @@ class ProfileModelsTest(TestCase):
         User.objects.create_user(username='name')
         profile = Profile.objects.first()
         self.assertEqual(str(profile), 'name')
+
+    def test_User_in_sellers_when_Profile_make_as_vendor(self):
+        """
+        Test: User was added in sellers group when make as vendor
+        """
+        user = User.objects.create_user(username='name')
+
+        self.assertFalse(
+            user.groups.filter(name='sellers').exists(), 
+            msg="Error, user in sellers group"
+        )
+
+        user.profile.make_as_vendor()
+        self.assertTrue(
+            user.groups.filter(name='sellers').exists(), 
+            msg="User out of sellers group"
+        )
+
+
+
+
+
