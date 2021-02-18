@@ -51,10 +51,25 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField('Информация', max_length=500, blank=True)
     location = models.CharField('Местоположение', max_length=30, blank=True)
-    vendor = models.BooleanField('Является ли продавцом', default=False)
+    _vendor = models.BooleanField('Является ли продавцом', default=False)
 
     def __str__(self):
         return self.user.username
+
+    def make_as_vendor(self):
+        if not self._vendor:
+            self._vendor = True
+            sellers, group_created = Group.objects.get_or_create(name='sellers')
+            self.user.groups.add(sellers)
+            if group_created:
+                perms = ('add_product', 'change_product')
+                permissions_queryset = Permission.objects.filter(codename__in=perms)
+                sellers.permissions.set(permissions_queryset)
+            self.save()
+
+    @property
+    def is_vendor(self):
+        return self._vendor
 
 
 class Tag(models.Model):
