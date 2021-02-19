@@ -7,7 +7,9 @@ from django.urls import reverse
 
 
 class Product(models.Model):
-    """product's model"""
+    """
+    Класс отвечает за сущность товар (продукт)
+    """
     category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
     vendor = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Продавец')
     name = models.CharField('Название', max_length=40, db_index=True)
@@ -30,6 +32,9 @@ class Product(models.Model):
         ordering = ['-updated']
 
     def get_absolute_url(self):
+        """
+        Метод возвращает абсолютный url :class:'Product'
+        """
         return reverse('goods_detail', kwargs={'pk': self.id})
 
 
@@ -51,13 +56,13 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField('Информация', max_length=500, blank=True)
     location = models.CharField('Местоположение', max_length=30, blank=True)
-    _vendor = models.BooleanField('Является ли продавцом', default=False)
+    vendor = models.BooleanField('Является ли продавцом', default=False)
 
     def __str__(self):
         return self.user.username
 
     def make_as_vendor(self):
-        if not self._vendor:
+        if not self.vendor:
             self._vendor = True
             sellers, group_created = Group.objects.get_or_create(name='sellers')
             self.user.groups.add(sellers)
@@ -69,7 +74,7 @@ class Profile(models.Model):
 
     @property
     def is_vendor(self):
-        return self._vendor
+        return self.vendor
 
 
 class Tag(models.Model):
