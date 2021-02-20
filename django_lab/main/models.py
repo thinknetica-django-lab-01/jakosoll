@@ -38,6 +38,9 @@ class Product(models.Model):
         ordering = ['-updated']
 
     def get_absolute_url(self):
+        """
+        Метод возвращает абсолютный url :class:'Product'
+        """
         return reverse('goods_detail', kwargs={'pk': self.id})
 
 
@@ -69,19 +72,20 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField('Информация', max_length=500, blank=True)
     location = models.CharField('Местоположение', max_length=30, blank=True)
-    _vendor = models.BooleanField('Является ли продавцом', default=False)
+    vendor = models.BooleanField('Является ли продавцом', default=False)
 
     def __str__(self):
         return self.user.username
 
+<<<<<<< HEAD
     def make_as_vendor(self) -> None:
         """
         The method defines the user as the vendor
 
         :return None: 
         """
-        if not self._vendor:
-            self._vendor = True
+        if not self.vendor:
+            self.vendor = True
             sellers, group_created = Group.objects.get_or_create(name='sellers')
             self.user.groups.add(sellers)
             if group_created:
@@ -95,7 +99,7 @@ class Profile(models.Model):
         """
         The property returns is a user as a vendor or not
         """
-        return self._vendor
+        return self.vendor
 
 
 class Tag(models.Model):
