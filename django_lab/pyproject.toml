@@ -50,6 +50,8 @@ pytest = "^6.2.2"
 pytest-django = "^4.1.0"
 pyflakes = "^2.2.0"
 flake8 = "^3.8.4"
+Sphinx = "^3.5.1"
+sphinx-rtd-theme = "^0.5.1"
 
 [tool.poetry.dev-dependencies]
 

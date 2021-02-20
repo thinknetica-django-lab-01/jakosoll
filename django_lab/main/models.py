@@ -7,7 +7,15 @@ from django.urls import reverse
 
 
 class Product(models.Model):
-    """product's model"""
+    """
+    Includes single product's entity,
+    related:
+
+    :class:`main.Category`,
+    :class:`main.Tag`,
+    :class:`auth.User`
+
+    """
     category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
     vendor = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Продавец')
     name = models.CharField('Название', max_length=40, db_index=True)
@@ -34,7 +42,11 @@ class Product(models.Model):
 
 
 class Category(models.Model):
-    """category's model"""
+    """
+    Includes single category's entity
+
+
+    """
     name = models.CharField('Категория', max_length=20, db_index=True)
     slug = models.SlugField('url', unique=True)
 
@@ -47,7 +59,13 @@ class Category(models.Model):
 
 
 class Profile(models.Model):
-    """vendor's model"""
+    """
+    Includes single profile's entity.
+    related:
+
+    :class:`auth.User`
+
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField('Информация', max_length=500, blank=True)
     location = models.CharField('Местоположение', max_length=30, blank=True)
@@ -56,7 +74,12 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-    def make_as_vendor(self):
+    def make_as_vendor(self) -> None:
+        """
+        The method defines the user as the vendor
+
+        :return None: 
+        """
         if not self._vendor:
             self._vendor = True
             sellers, group_created = Group.objects.get_or_create(name='sellers')
@@ -68,12 +91,17 @@ class Profile(models.Model):
             self.save()
 
     @property
-    def is_vendor(self):
+    def is_vendor(self) -> bool:
+        """
+        The property returns is a user as a vendor or not
+        """
         return self._vendor
 
 
 class Tag(models.Model):
-    """"""
+    """
+    Includes single tag's entity.
+    """
     name = models.CharField("Тег", max_length=30)
 
     def __str__(self):
@@ -81,12 +109,22 @@ class Tag(models.Model):
 
 
 class ProductSubscriber(models.Model):
+    """
+    Includes single subscriber's entity.
+    related:
 
+    :class:`auth.User`
+
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriber')
 
 
 @receiver(post_save, sender=User)
-def add_user_profile_and_perms(sender, instance, created, **kwargs):
+def add_user_profile_and_perms(sender, instance, created, **kwargs) -> None:
+    """
+    Post signal function adds new user in 'common users'.
+    If group does not exists, it will be created
+    """
     if created:
         common_users, group_created = Group.objects.get_or_create(name='common users')
         instance.groups.add(common_users)
@@ -97,6 +135,6 @@ def add_user_profile_and_perms(sender, instance, created, **kwargs):
 
 
 @receiver(post_save, sender=User)
-def update_or_create_user_profile(sender, instance, **kwargs):
+def update_or_create_user_profile(sender, instance, **kwargs) -> None:
     """Function adds profile when user created"""
     Profile.objects.update_or_create(user=instance)
