@@ -11,3 +11,4 @@ django_lab.sublime-workspace
 .python-version
 *.lock
 *.bak
+docs/*
