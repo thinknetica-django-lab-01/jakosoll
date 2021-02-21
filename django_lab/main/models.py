@@ -77,12 +77,11 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-<<<<<<< HEAD
     def make_as_vendor(self) -> None:
         """
         The method defines the user as the vendor
 
-        :return None: 
+        :return None:
         """
         if not self.vendor:
             self.vendor = True
