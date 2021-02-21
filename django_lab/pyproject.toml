@@ -52,6 +52,7 @@ pyflakes = "^2.2.0"
 flake8 = "^3.8.4"
 Sphinx = "^3.5.1"
 sphinx-rtd-theme = "^0.5.1"
+django-stubs = "^1.7.0"
 
 [tool.poetry.dev-dependencies]
 

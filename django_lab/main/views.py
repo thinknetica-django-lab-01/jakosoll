@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect, HttpResponseBadRequest
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
@@ -10,7 +10,7 @@ from django import forms
 from django.core.cache import cache
 
 
-def index(request):
+def index(request: HttpRequest) -> HttpResponse:
     """Displays main page"""
     return render(request, 'index.html')
 
@@ -18,7 +18,7 @@ def index(request):
 class ProductListView(ListView):
     """Displays product's list"""
     model = Product
-    paginate_by = 10
+    paginate_by: int = 10
     template_name = 'product_list.html'
     context_object_name = 'products'
 
@@ -104,7 +104,7 @@ class UpdateAccountView(LoginRequiredMixin, UpdateView):
 
 
 @login_required
-def subscription(request):
+def subscription(request: HttpRequest) -> HttpResponse:
     """Handles subscribe button"""
     if request.POST:
         form = forms.Form(request.POST or None)
