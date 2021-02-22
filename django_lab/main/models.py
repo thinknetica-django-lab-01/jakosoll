@@ -20,7 +20,7 @@ class Product(models.Model):
     vendor = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Продавец')
     name = models.CharField('Название', max_length=40, db_index=True)
     description = models.TextField('Описание', blank=True)
-    price = models.DecimalField('Стоимость', max_digits=8, decimal_places=2, help_text='Укзажите сумму в '
+    price = models.DecimalField('Стоимость', max_digits=8, decimal_places=2, help_text='Укажите сумму в '
                                                                                        'рублях')
     amount = models.PositiveIntegerField('Количество', default=1, help_text='Укажите ко-во товара')
     created = models.DateTimeField('Добавлен', auto_now_add=True)
@@ -29,7 +29,7 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     view_counter = models.PositiveIntegerField('Просмотры', default=0)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     class Meta:
@@ -37,7 +37,7 @@ class Product(models.Model):
         verbose_name_plural = 'Продукты'
         ordering = ['-updated']
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         """
         Метод возвращает абсолютный url :class:'Product'
         """
@@ -53,7 +53,7 @@ class Category(models.Model):
     name = models.CharField('Категория', max_length=20, db_index=True)
     slug = models.SlugField('url', unique=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     class Meta:
@@ -74,7 +74,7 @@ class Profile(models.Model):
     location = models.CharField('Местоположение', max_length=30, blank=True)
     vendor = models.BooleanField('Является ли продавцом', default=False)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.user.username
 
     def make_as_vendor(self) -> None:
@@ -107,7 +107,7 @@ class Tag(models.Model):
     """
     name = models.CharField("Тег", max_length=30)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 

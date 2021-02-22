@@ -54,6 +54,7 @@ Sphinx = "^3.5.1"
 sphinx-rtd-theme = "^0.5.1"
 channels = "^3.0.3"
 channels-redis = "^3.2.0"
+django-stubs = "^1.7.0"
 
 [tool.poetry.dev-dependencies]
 
