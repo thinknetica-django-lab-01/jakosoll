@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'chat',
     'django.contrib.sites',
     'django.contrib.flatpages',
     'ckeditor',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'debug_toolbar',
+    'channels',
 ]
 
 SITE_ID = 2
@@ -58,6 +60,17 @@ SITE_ID = 2
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+# Django channels settings
+ASGI_APPLICATION = "django_lab.asgi.application"
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [CHANNEL_REDIS_HOST],
+#             "symmetric_encryption_keys": [SECRET_KEY],
+#         },
+#     },
+# }
 
 ACCOUNT_ADAPTER = "main.adapter.CustomAdapter"
 
@@ -174,7 +187,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_DIR = BASE_DIR / 'static'
+STATIC_DIR = BASE_DIR / 'static'
 STATIC_ROOT = BASE_DIR / 'static'
 
 # ckeditor image uploads setting

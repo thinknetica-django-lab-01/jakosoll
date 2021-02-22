@@ -8,11 +8,12 @@ from .models import Product, Category, Tag, ProductSubscriber
 from .forms import UpdateUserForm, ProductAddForm
 from django import forms
 from django.core.cache import cache
+import uuid
 
 
 def index(request):
     """Displays main page"""
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'uuid': uuid.uuid4()})
 
 
 class ProductListView(ListView):

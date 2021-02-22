@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load main_tags %}
+{% load static %}
 {% current_time "%Y-%m-%d" as the_time %}
 {% block title %}Главная{% endblock title %}
 {% block header %}
@@ -14,5 +15,22 @@
                 <p>{{ 'Привет мир' | reverse_text }}</p>
             </div>
         </div>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <div class="row">
+            <div class="col-md-10">
+                <form id="chat-log" action="">
+                    <div class="alert alert-success message">Привет!</div>
+                </form>
+                <div class="input-group mb-3">
+                    <input class="form-control" id="chat-message-input" type="text" size="60"><br>
+                    <button class="btn btn-outline-secondary" id="chat-message-submit" type="submit">Отправить</button>
+                </div>
+                
+            </div>
+        </div>
+        {{ uuid|json_script:"uuid" }}
+        <script src="{% static "js/chat.js" %}">
+        </script>
     </div>
 {% endblock content %}
