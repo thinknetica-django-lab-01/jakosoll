@@ -69,7 +69,7 @@ class Profile(models.Model):
     :class:`auth.User`
 
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.TextField('Информация', max_length=500, blank=True)
     location = models.CharField('Местоположение', max_length=30, blank=True)
     vendor = models.BooleanField('Является ли продавцом', default=False)
