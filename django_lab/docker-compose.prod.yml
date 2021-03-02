@@ -30,7 +30,7 @@ services:
     volumes:
       - ./django_lab:/django_lab
     env_file:
-      - ./.env.prod
+      - ./.env.prod.db
     depends_on:
       - db
       - redis
