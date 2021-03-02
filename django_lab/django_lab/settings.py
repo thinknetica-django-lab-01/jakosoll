@@ -66,8 +66,7 @@ ASGI_APPLICATION = "django_lab.asgi.application"
 #     'default': {
 #         'BACKEND': 'channels_redis.core.RedisChannelLayer',
 #         'CONFIG': {
-#             "hosts": [CHANNEL_REDIS_HOST],
-#             "symmetric_encryption_keys": [SECRET_KEY],
+#             "hosts": [("localhost", 6379)],
 #         },
 #     },
 # }
@@ -190,9 +189,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/staticfiles/'
 STATIC_DIR = BASE_DIR / 'static'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+if DEBUG:
+    STATIC_ROOT = BASE_DIR / 'static'
 
 # ckeditor image uploads setting
 CKEDITOR_UPLOAD_PATH = "uploads/"

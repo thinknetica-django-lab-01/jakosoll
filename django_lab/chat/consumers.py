@@ -16,7 +16,7 @@ class ChatConsumer(WebsocketConsumer):
 
 def get_response_message(message: str) -> str:
     """
-    Function takes product name and return count, 
+    Function takes product name and return count,
     if it exists
     """
     dash_index: int = message.find('#')

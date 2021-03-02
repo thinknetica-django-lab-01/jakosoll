@@ -1,0 +1,63 @@
+###########
+# BUILDER #
+###########
+
+
+FROM python:3.9-slim-buster as builder
+
+WORKDIR /usr/src/django_lab
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update && apt-get install postgresql-server-dev-all gcc python3-dev musl-dev -y
+
+RUN pip install --upgrade pip
+RUN pip install flake8
+
+COPY . /usr/src/django_lab
+
+RUN flake8 --ignore=E501,F401,E402 .
+
+# install dependencies
+COPY requirements.txt /usr/src/requirements.txt
+
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/django_lab/wheels -r requirements.txt
+
+#########
+# FINAL #
+#########
+
+# pull official base image
+FROM python:3.9-slim-buster 
+
+# create directory for the app user
+RUN mkdir -p /home/django_lab
+
+# create the app user
+RUN groupadd -g 2000 django_lab && useradd -m -u 2001 -g django_lab django_lab
+
+# create the appropriate directories
+ENV HOME=/home/django_lab
+ENV APP_HOME=/home/django_lab/web
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/staticfiles
+WORKDIR $APP_HOME
+
+# install dependencies
+RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
+RUN apt update && apt install libpq5 netcat -y
+COPY --from=builder /usr/src/django_lab/wheels /wheels
+COPY --from=builder /usr/src/django_lab/requirements.txt .
+RUN pip install --no-cache /wheels/*
+
+COPY entrypoint.prod.sh $APP_HOME
+
+# copy project
+COPY . $APP_HOME
+
+RUN chown -R django_lab:django_lab $APP_HOME
+
+USER django_lab
+
+ENTRYPOINT ["/home/django_lab/web/entrypoint.prod.sh"]
