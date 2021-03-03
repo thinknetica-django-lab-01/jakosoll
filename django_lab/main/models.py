@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group, Permission
+from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
@@ -25,7 +26,7 @@ class Product(models.Model):
     amount = models.PositiveIntegerField('Количество', default=1, help_text='Укажите ко-во товара')
     created = models.DateTimeField('Добавлен', auto_now_add=True)
     updated = models.DateTimeField('Последнее обновление', auto_now=True)
-    tags = models.ManyToManyField('Tag', verbose_name='Теги')
+    tags = ArrayField(models.CharField(max_length=20), size=10, blank=True)
     available = models.BooleanField(default=True)
     view_counter = models.PositiveIntegerField('Просмотры', default=0)
 
