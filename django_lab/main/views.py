@@ -13,6 +13,7 @@ import uuid
 from django.db.models.query import QuerySet
 from typing import Optional, Union, Dict, Any
 from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -39,6 +40,32 @@ class ProductListView(ListView):
         if tag_name:
             tag = 'tag=' + tag_name
             context['tag'] = tag
+        return context
+
+
+class ProductSearchView(ListView):
+    model = Product
+    paginate_by: int = 10
+    template_name: str = 'product_search.html'
+    context_object_name: str = 'products'
+
+    def get_queryset(self, **kwargs):
+        query = self.request.GET.get('query')
+        if query:
+            search_vector = SearchVector('name', weight='A') + SearchVector('description', weight='B')
+            search_query = SearchQuery(query)
+            return Product.objects.annotate(
+                rank=SearchRank(search_vector, search_query),
+            ).filter(rank__gte=0.2).order_by('-rank')
+        return QuerySet()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('query')
+        if query:
+            query_param = '&query=' + self.request.GET.get('query')
+            context['query_param'] = query_param
+            context['query'] = query
         return context
 
 

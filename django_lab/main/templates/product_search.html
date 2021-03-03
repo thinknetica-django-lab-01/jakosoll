@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% block title %}Результаты поиска{% endblock title %}
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            <h1>{% if products %}Результаты поиска по запросу <b>"{{ query }}"</b>{% else %}Ничего не найдено{% endif %}</h1>
+            <ul>
+                {% for product in products %}
+                    <li class="mt-2">
+                        <a href="{% url 'goods_detail' pk=product.id %}">{{ product.name }}</a>
+                        <p class="mt-2">{{ product.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if page_obj.paginator.num_pages != 1 %}
+        <div class="row">
+            <div class="col-md-10">
+                <nav aria-label="Page pagination">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a href="?page={{ page_obj.previous_page_number }}{{ query_param }}" aria-label="Previous"
+                                   class="page-link">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link"
+                                                     href="?page={{ page_obj.previous_page_number }}{{ query_param }}">{{ page_obj.previous_page_number }}</a>
+                            </li>
+                        {% endif %}
+                        <li class="page-item disabled"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link"
+                                                     href="?page={{ page_obj.next_page_number }}{{ query_param }}">{{ page_obj.next_page_number }}</a>
+                            </li>
+                            {% if page_obj.next_page_number < page_obj.paginator.num_pages %}
+                                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.paginator.num_pages }}{{ query_param }}">{{ page_obj.paginator.num_pages }}</a>
+                                </li>
+                            {% endif %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{{ query_param }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

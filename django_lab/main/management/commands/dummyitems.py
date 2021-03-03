@@ -1,7 +1,7 @@
 import sys
 from django.core.management import BaseCommand
 from django.contrib.auth.models import User
-from ...models import Product, Category, Tag
+from ...models import Product, Category
 from faker import Faker
 from random import choice, randint
 
@@ -32,25 +32,14 @@ def get_or_create_categories(amount: int) -> list:
 
 
 def get_or_create_tags(amount: int) -> list:
-    tags_qs = Tag.objects.all()
-    tags_list = []
-    if len(tags_qs) >= amount:
-        tags_list = list(tags_qs)
-    else:
-        for _ in range(amount - len(tags_qs)):
-            tags_list.append(
-                Tag.objects.create(
-                    name=fake['ru_RU'].word()
-                )
-            )
-    return tags_list
+    return [fake['ru_RU'].word() for _ in range(amount)]
 
 
 def get_or_create_vendors(amount: int) -> list:
     vendors_qs = User.objects.filter(profile__vendor=True)
     vendors_list = []
     if len(vendors_qs) >= amount:
-        vendors_list = list(vendors_list)
+        vendors_list = list(vendors_qs)
     else:
         for _ in range(amount - len(vendors_qs)):
             user = User.objects.create_user(
@@ -80,11 +69,11 @@ class Command(BaseCommand):
         vendors: list = get_or_create_vendors(VENDORS_AMOUNT)
 
         for _ in range(i):
-            product = Product.objects.create(
+            Product.objects.create(
                 category=choice(categories),
                 vendor=choice(vendors),
                 name=fake['ru_RU'].word(),
                 description=fake['ru_RU'].paragraph(nb_sentences=1),
                 price=randint(100, 2000),
+                tags=[choice(tags)]
             )
-            product.tags.set([choice(tags)])
