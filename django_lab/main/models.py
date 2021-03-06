@@ -123,6 +123,20 @@ class ProductSubscriber(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriber')
 
 
+class ViewCounter(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    product_name = models.CharField(max_length=60)
+    username = models.CharField(max_length=60)
+    view_counter = models.BigIntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'main_viewcounter'
+
+    def __str__(self):
+        return f'Product {self.product_name} by vendor {self.username} has {self.view_counter} views'
+
+
 @receiver(post_save, sender=User)
 def add_user_profile_and_perms(sender, instance, created, **kwargs) -> None:
     """
