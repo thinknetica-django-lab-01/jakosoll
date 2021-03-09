@@ -18,11 +18,17 @@ from django.urls import path, include
 
 from django_lab import settings
 
+
+# def trigger_error(request):
+#     division_by_zero = 1 / 0
+    
+
 urlpatterns = [
     path('', include('main.urls')),
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    # path('sentry-debug/', trigger_error),
 ]
 if settings.DEBUG:
     import debug_toolbar
